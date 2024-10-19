@@ -3,22 +3,7 @@ import sys
 
 from scenarios_list import scenarios  # Import the scenarios list
 import time
-import tkinter as tk
-from tkinter import Label
-#from PIL import Image, ImageTk
-import random 
 from scenarios_list import scenarios
-
-def validate_budgets(prompt,message,income):
-    valid = False
-    while valid == False:
-        budget = float(input(prompt))
-        if budget > income:
-            print(message)
-        else:
-            valid = True
-    return budget
-
 
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
@@ -36,16 +21,74 @@ def calculate_enough_money(amount, bank_account):
 def savings(bank_account, savings_account, monthly_income):
     saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
-        saving_money_amount = input("How much do you want to transfer to savings?\n")
-        if not calculate_enough_money(float(saving_money_amount), bank_account):
-            print("Sorry you do not have enough money in your bank account to transfer to savings\n")
-            return bank_account, savings_account, monthly_income
+        saving_money_options = input \
+            ("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
+        if saving_money_options == "one off":
+            saving_money_amount = input("How much do you want to transfer to savings?\n")
+            if not calculate_enough_money(float(saving_money_amount), bank_account):
+                print("Sorry you do not have enough money in your bank account to transfer to savings\n")
+                return bank_account, savings_account, monthly_income
+            else:
+                savings_account += float(saving_money_amount)
+                bank_account -= float(saving_money_amount)
         else:
-            savings_account += float(saving_money_amount)
-            bank_account -= float(saving_money_amount)
+            saving_money_amount = input \
+                ("How much do you want to transfer to savings per month? You currently have  "+ str
+                    (bank_account) +" in your bank account and " + str(savings_account) + " in savings\n")
+            if not calculate_enough_money(float(saving_money_amount), monthly_income):
+                print("Sorry you do not have enough money in your monthly income to transfer to savings\n")
+                return bank_account, savings_account, monthly_income
+            else:
+                savings_account += float(saving_money_amount)
+                monthly_income -= float(saving_money_amount)
     else:
         print("Okay! No money has been added to savings\n")
     return bank_account, savings_account, monthly_income
+
+
+def random_events():
+    # 25% chance to go out tonight
+    if random.random() <= 0.25:
+        print("You have the option to out clubbing tonight! Do you want to go? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You went out and had a great time! But it cost you some money...")
+            return -50, +20  # Deduct some money and increase happiness
+        else:
+            print("You decided not to go to the party. You got some bad FOMO...")
+            return -0, -25  # Deduct no money but decrease happiness
+
+    # 15% chance it's your friend's birthday
+    if random.random() <= 0.15:
+        print("It's your friend's birthday! Do you want to buy them a gift? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You bought a gift for your friend! It cost you some money but they really appreciated it.\n Money lost: -25, Happiness gained: +10")
+            return -25, +10  # Deduct money and increase happiness
+        else:
+            print("You decided not to buy a gift for your friend.")
+
+    # 10% chance a new Mario Kart game just came out
+    if random.random() <= 0.20:
+        print("A new Mario Kart game just came out! Do you want to buy it? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You bought the new Mario Kart game! It was expensive but it's a lot of fun.\n Money lost: -50, Happiness gained: +15")
+            return -50, +15  # Deduct money and increase happiness
+        else:
+            print("You decided not to buy the new Mario Kart game.")
+
+    return 0, 0  # No change if none of the events happen
+
+    # 50% chance to go for a takeout
+    if random.random() <= 0.20:
+        print("You have the option to go for a takeout! Do you want to go? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You went for a takeout and had some great scran! But it cost you some money.\nMoney lost: -15, Happiness gained: +20")
+            return -15, +20  # Deduct some money and increase happiness
+        else:
+            print("You decided not to go for a takeout.")
 
 def after_uni(savings_account):
     savings_account = savings_account * (1.02^4)
@@ -61,31 +104,6 @@ def after_uni(savings_account):
         print("You earned more money because you invested in an index fund (7% return) instead of a Life Time ISA (1% return), well done, but this could have gone the other way!")
 
 
-def create_popup(image_path):
-    # Create the root window
-    root = tk.Tk()
-    root.title("Popup with Image and Terminal Output")
-
-    # Load the image
-    img = Image.open(image_path)
-    img = img.resize((250, 250))  # Resize the image if necessary
-    img = ImageTk.PhotoImage(img)
-
-    # Create a label to display the image
-    image_label = Label(root, image=img)
-    image_label.pack()
-
-    # Create a Text widget to display terminal output
-    text_widget = tk.Text(root, wrap='word', height=10, padx=10, pady=10)
-    text_widget.pack()
-
-    # Redirect sys.stdout to our custom class
-    sys.stdout = RedirectText(text_widget)
-
-    # Start the Tkinter event loop
-    root.mainloop()
-
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
@@ -96,11 +114,9 @@ if __name__ == '__main__':
     part_time_income = 0
     savings_account = 0
     current_month = 0
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November', 'December']
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+              'November', 'December']
     happiness_level = 100
-
-    image_path = "/Users/tallulahthompson/Desktop/studycat/IMG_7601.PNG"  # Replace with your image path
-    create_popup(image_path)  # This will start the GUI window
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
@@ -118,9 +134,13 @@ if __name__ == '__main__':
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
 
     # Get rent and food budget from user
-    food_budget = validate_budgets("How much do you want to set aside for food per month? For reference, the average UK "
-                              "uni student spends £144.00 per month on groceries.\n","You can't spend more than you earn, on food! Try again.",monthly_income)
-    rent_budget = validate_budgets("How much is your monthly rent amount?\n","I don't think you can afford to live here... Try again.",monthly_income)
+    food_budget = float(input("How much do you want to set aside for food per month? For reference, the average UK "
+                              "uni student spends £144.00 per month on groceries.\n"))
+    if food_budget > monthly_income:
+        print("You can't spend more than you earn, on food! Try again.")
+    rent_budget = float(input("How much is your monthly rent amount?\n"))
+    if rent_budget > monthly_income:
+        print("I don't think you can afford to live here... Try again.")
 
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
@@ -146,6 +166,11 @@ if __name__ == '__main__':
                 print(scenarios[scenario_i][0])
                 bank_account += scenarios[scenario_i][1]
 
+                # Call the random events function
+                money_change, happiness_change = random_events()
+                bank_account += money_change
+                happiness_level += happiness_change
+
                 if bank_account < 0:
                     print("Uh oh! You have no money left in your bank account. You have lost the game.")
                     sys.exit()
@@ -158,8 +183,3 @@ if __name__ == '__main__':
 
     if bank_account < 0:
         print("Uh oh! You have no money left in your bank account. You have lost the game.")
-
-    after_uni(savings_account)
-
-
-
