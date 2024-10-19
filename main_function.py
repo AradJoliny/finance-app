@@ -169,6 +169,10 @@ if __name__ == '__main__':
             scenario_i = random.randint(0, 11)
             print(scenarios[scenario_i][0])
             bank_account += scenarios[scenario_i][1]
+            print("Bank balance after this: " + str(bank_account))
+            if bank_account < 0:
+                print("Uh oh! You have no money left in your bank account. You have lost the game.")
+                sys.exit()
 
             # Call the random events function
             money_change, happiness_change = random_events()
