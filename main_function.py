@@ -33,13 +33,9 @@ if __name__ == '__main__':
 
     monthly_income = calculate_monthly_income(loan_amount, part_time_income, job_status)
 
+    print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
+
     while current_month <= 11:
         bank_account += monthly_income
         while (bank_account + savings_account) > 0:
             print("Month:", months[current_month])
-
-    print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
-
-
-
-
