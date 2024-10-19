@@ -14,6 +14,8 @@ if __name__ == '__main__':
     job_status = False
     loan_amount = 0
     part_time_income = 0
+    bank_account = 0
+    savings_account = 0
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
