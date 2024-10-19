@@ -46,6 +46,8 @@ if __name__ == '__main__':
     loan_amount = 0
     part_time_income = 0
     savings_account = 0
+    current_month = 0
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
@@ -65,5 +67,7 @@ if __name__ == '__main__':
     bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
 
-
-
+    while current_month <= 11:
+        bank_account += monthly_income
+        while (bank_account + savings_account) > 0:
+            print("Month:", months[current_month])
