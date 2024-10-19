@@ -46,11 +46,12 @@ if __name__ == '__main__':
     savings_account = 0
     current_month = 0
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    happiness_level = 0
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
     loan_amount = int(input("Lets get started! How much maintenance/student loan do you have per year?\n"))
-    # Get their job status, are they working a part time job?
+    # Get their job status, are they working a part-time job?
     job_status = input("Are you currently working a part-time job? Please enter 'yes' or 'no'\n")
     # Change job_status based on input
     if job_status == "yes":
@@ -74,10 +75,28 @@ if __name__ == '__main__':
     if rent_budget > monthly_income:
         print("I don't think you can afford to live here... Try again.")
 
+    # Print monthly budget after expenses
+    print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
 
-    # Get monthly expenses from user
 
-    while current_month <= 11:
-        bank_account += monthly_income
-        while (bank_account + savings_account) > 0:
-            print("Month:", months[current_month])
+    # Initialise bank account after deductions
+    while current_month < 12:
+        while bank_account > 0:
+            bank_account += monthly_income - food_budget - rent_budget
+
+            print("Month: ", months[current_month])
+            print("\nBank account balance: £", bank_account)
+            print("\nSavings account balance: £", savings_account)
+
+            current_month += 1
+
+
+
+
+
+
+
+
+
+
+
