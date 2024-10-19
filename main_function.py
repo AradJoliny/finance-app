@@ -1,3 +1,6 @@
+from scenarios_list import scenarios  # Import the scenarios list
+import time
+
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
         return (loan_amount / 12) + float(part_time_income)
@@ -81,7 +84,7 @@ if __name__ == '__main__':
     while current_month < 12:
         while bank_account > 0:
             bank_account += monthly_income - food_budget - rent_budget
-
+            time.sleep(1.5)
             print("Month: ", months[current_month])
             print("\nBank account balance: £", bank_account)
             print("\nSavings account balance: £", savings_account)
