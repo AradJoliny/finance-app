@@ -139,7 +139,7 @@ if __name__ == '__main__':
     if food_budget > monthly_income:
         print("You can't spend more than you earn, on food! Try again.")
     rent_budget = float(input("How much is your monthly rent amount?\n"))
-    if rent_budget > monthly_income:
+    if rent_budget + food_budget > monthly_income:
         print("I don't think you can afford to live here... Try again.")
 
     # Print monthly budget after expenses
