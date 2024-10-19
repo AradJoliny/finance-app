@@ -21,26 +21,13 @@ def calculate_enough_money(amount, bank_account):
 def savings(bank_account, savings_account, monthly_income):
     saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
-        saving_money_options = input \
-            ("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
-        if saving_money_options == "one off":
-            saving_money_amount = input("How much do you want to transfer to savings?\n")
-            if not calculate_enough_money(float(saving_money_amount), bank_account):
-                print("Sorry you do not have enough money in your bank account to transfer to savings\n")
-                return bank_account, savings_account, monthly_income
-            else:
-                savings_account += float(saving_money_amount)
-                bank_account -= float(saving_money_amount)
+        saving_money_amount = input("How much do you want to transfer to savings?\n")
+        if not calculate_enough_money(float(saving_money_amount), bank_account):
+            print("Sorry you do not have enough money in your bank account to transfer to savings\n")
+            return bank_account, savings_account, monthly_income
         else:
-            saving_money_amount = input \
-                ("How much do you want to transfer to savings per month? You currently have  "+ str
-                    (bank_account) +" in your bank account and " + str(savings_account) + " in savings\n")
-            if not calculate_enough_money(float(saving_money_amount), monthly_income):
-                print("Sorry you do not have enough money in your monthly income to transfer to savings\n")
-                return bank_account, savings_account, monthly_income
-            else:
-                savings_account += float(saving_money_amount)
-                monthly_income -= float(saving_money_amount)
+            savings_account += float(saving_money_amount)
+            bank_account -= float(saving_money_amount)
     else:
         print("Okay! No money has been added to savings\n")
     return bank_account, savings_account, monthly_income
@@ -52,7 +39,7 @@ def random_events():
         print("You have the option to out clubbing tonight! Do you want to go? (yes/no)")
         choice = input().lower()
         if choice == "yes":
-            print("You went out and had a great time! But it cost you some money...")
+            print("You went out and had a great time!\n Money lost: -50, Happiness gained: +20")
             return -50, +20  # Deduct some money and increase happiness
         else:
             print("You decided not to go to the party. You got some bad FOMO...")
@@ -91,15 +78,15 @@ def random_events():
             print("You decided not to go for a takeout.")
 
 def after_uni(savings_account):
-    savings_account = savings_account * (1.02^4)
+    savings_account = savings_account * (1.02**4)
     print("After 4 years of uni, your savings account balance is: £", savings_account)
     savings_choice = input("Do you want to make a Life Time ISA or invest in an index fund? Please enter 'ISA' or 'index fund'\n")
     if savings_choice == "ISA":
-        savings_account = savings_account * (1.01^30)
+        savings_account = savings_account * (1.01**30)
         print("After 30 years, your savings account balance is: £", savings_account)
         print("You could have earned more money if you invested in an index fund (7% return) instead of a Life Time ISA (1% return), but you didn't take the risk!")
     else:
-        savings_account = savings_account * (1.07^30)
+        savings_account = savings_account * (1.07**30)
         print("After 30 years, your savings account balance is: £", savings_account)
         print("You earned more money because you invested in an index fund (7% return) instead of a Life Time ISA (1% return), well done, but this could have gone the other way!")
 
@@ -148,38 +135,42 @@ if __name__ == '__main__':
     bank_account += monthly_income - food_budget - rent_budget
 
     # Initialise bank account after deductions
-    while current_month < 12:
-        while bank_account > 0:
-            while happiness_level > 0:
-                time.sleep(1.5)
-                print("Month: ", months[current_month])
-                time.sleep(1)
-                print("\nBank account balance: £", bank_account)
-                time.sleep(1)
-                print("\nSavings account balance: £", savings_account)
-                time.sleep(1)
-                print("\nYour happiness level: ", happiness_level, "\n")
-                time.sleep(1)
 
-                # crazy unavoidable event
-                scenario_i = random.randint(0, 11)
-                print(scenarios[scenario_i][0])
-                bank_account += scenarios[scenario_i][1]
+    for month in months:
+        if happiness_level > 0 and bank_account > 0:
+            time.sleep(1.5)
+            print(month)
+            time.sleep(1)
+            print("\nBank account balance: £", bank_account)
+            time.sleep(1)
+            print("\nSavings account balance: £", savings_account)
+            time.sleep(1)
+            print("\nYour happiness level: ", happiness_level, "\n")
+            time.sleep(1)
 
-                # Call the random events function
-                money_change, happiness_change = random_events()
-                bank_account += money_change
-                happiness_level += happiness_change
+            # crazy unavoidable event
+            scenario_i = random.randint(0, 11)
+            print(scenarios[scenario_i][0])
+            bank_account += scenarios[scenario_i][1]
 
-                if bank_account < 0:
-                    print("Uh oh! You have no money left in your bank account. You have lost the game.")
-                    sys.exit()
+            # Call the random events function
+            money_change, happiness_change = random_events()
+            bank_account += money_change
+            happiness_level += happiness_change
 
-                bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
-                happiness_level -= 10
+            if bank_account < 0:
+                print("Uh oh! You have no money left in your bank account. You have lost the game.")
+                sys.exit()
 
-                current_month += 1
-                bank_account += monthly_income - food_budget - rent_budget
+            bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
+            happiness_level -= 10
 
-    if bank_account < 0:
-        print("Uh oh! You have no money left in your bank account. You have lost the game.")
+            bank_account += monthly_income - food_budget - rent_budget
+        elif happiness_level <= 0:
+            print("You are too unhappy to continue. You have lost the game.")
+            break
+        else:
+            print("You have run out of money. You have lost the game.")
+            break
+
+    after_uni(savings_account)
