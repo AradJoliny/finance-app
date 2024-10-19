@@ -9,5 +9,5 @@ scenarios[6] = ["You and your flatmates thought giving each other stick-and-poke
 scenarios[7] = ["It's your birthday. You got gifted £100.", 100]
 scenarios[8] = ["Father gave you £1.", 1]
 scenarios[9] = ["You won a hotdog eating competition. Prize: £50", 50]
-scenarios[10] = ["The dorm heater broke, and in a moment of freezing desperation, you attempted to build a makeshift space heater using a toaster and a hairdryer. Now, there’s a black hole where your dorm floor used to be. Electrical repairs: -£200", 200]
+scenarios[10] = ["The dorm heater broke, and in a moment of freezing desperation, you attempted to build a makeshift space heater using a toaster and a hairdryer. Now, there’s a black hole where your dorm floor used to be. Electrical repairs: -£200", -200]
 scenarios[11] = ["While doing laundry in the shared laundry room, you found a wad of cash someone forgot in a pocket. No one claimed it, so you pocketed it for yourself. Laundry jackpot: +£50", 50]
