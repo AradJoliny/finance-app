@@ -61,7 +61,8 @@ if __name__ == '__main__':
 
     monthly_income = calculate_monthly_income(loan_amount, part_time_income, job_status)
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
-    
+    bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
+
 
 
     # Get rent and food budget from user
