@@ -38,26 +38,13 @@ def calculate_enough_money(amount, bank_account):
 def savings(bank_account, savings_account, monthly_income):
     saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
-        saving_money_options = input \
-            ("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
-        if saving_money_options == "one off":
-            saving_money_amount = input("How much do you want to transfer to savings?\n")
-            if not calculate_enough_money(float(saving_money_amount), bank_account):
-                print("Sorry you do not have enough money in your bank account to transfer to savings\n")
-                return bank_account, savings_account, monthly_income
-            else:
-                savings_account += float(saving_money_amount)
-                bank_account -= float(saving_money_amount)
+        saving_money_amount = input("How much do you want to transfer to savings?\n")
+        if not calculate_enough_money(float(saving_money_amount), bank_account):
+            print("Sorry you do not have enough money in your bank account to transfer to savings\n")
+            return bank_account, savings_account, monthly_income
         else:
-            saving_money_amount = input \
-                ("How much do you want to transfer to savings per month? You currently have  "+ str
-                    (bank_account) +" in your bank account and " + str(savings_account) + " in savings\n")
-            if not calculate_enough_money(float(saving_money_amount), monthly_income):
-                print("Sorry you do not have enough money in your monthly income to transfer to savings\n")
-                return bank_account, savings_account, monthly_income
-            else:
-                savings_account += float(saving_money_amount)
-                monthly_income -= float(saving_money_amount)
+            savings_account += float(saving_money_amount)
+            bank_account -= float(saving_money_amount)
     else:
         print("Okay! No money has been added to savings\n")
     return bank_account, savings_account, monthly_income
@@ -76,29 +63,29 @@ def after_uni(savings_account):
         print("You earned more money because you invested in an index fund (7% return) instead of a Life Time ISA (1% return), well done, but this could have gone the other way!")
 
 
-def create_popup(image_path):
-    # Create the root window
-    root = tk.Tk()
-    root.title("Popup with Image and Terminal Output")
+# def create_popup(image_path):
+#     # Create the root window
+#     root = tk.Tk()
+#     root.title("Popup with Image and Terminal Output")
 
-    # Load the image
-    img = Image.open(image_path)
-    img = img.resize((250, 250))  # Resize the image if necessary
-    img = ImageTk.PhotoImage(img)
+#     # Load the image
+#     img = Image.open(image_path)
+#     img = img.resize((250, 250))  # Resize the image if necessary
+#     img = ImageTk.PhotoImage(img)
 
-    # Create a label to display the image
-    image_label = Label(root, image=img)
-    image_label.pack()
+#     # Create a label to display the image
+#     image_label = Label(root, image=img)
+#     image_label.pack()
 
-    # Create a Text widget to display terminal output
-    text_widget = tk.Text(root, wrap='word', height=10, padx=10, pady=10)
-    text_widget.pack()
+#     # Create a Text widget to display terminal output
+#     text_widget = tk.Text(root, wrap='word', height=10, padx=10, pady=10)
+#     text_widget.pack()
 
-    # Redirect sys.stdout to our custom class
-    sys.stdout = RedirectText(text_widget)
+#     # Redirect sys.stdout to our custom class
+#     sys.stdout = RedirectText(text_widget)
 
-    # Start the Tkinter event loop
-    root.mainloop()
+#     # Start the Tkinter event loop
+#     root.mainloop()
 
 
 # Press the green button in the gutter to run the script.
@@ -111,12 +98,11 @@ if __name__ == '__main__':
     part_time_income = 0
     savings_account = 0
     current_month = 0
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-              'November', 'December']
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October','November', 'December']
     happiness_level = 100
 
-    image_path = "/Users/tallulahthompson/Desktop/studycat/IMG_7601.PNG"  # Replace with your image path
-    create_popup(image_path)  # This will start the GUI window
+    # image_path = "/Users/tallulahthompson/Desktop/studycat/IMG_7601.PNG"  # Replace with your image path
+    # create_popup(image_path)  # This will start the GUI window
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
@@ -178,6 +164,8 @@ if __name__ == '__main__':
 
     if bank_account < 0:
         print("Uh oh! You have no money left in your bank account. You have lost the game.")
+
+    after_uni(savings_account)
 
 
 
