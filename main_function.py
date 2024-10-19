@@ -1,4 +1,4 @@
-import time
+from scenarios_list import scenarios  # Import the scenarios list
 
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
@@ -14,11 +14,11 @@ def calculate_enough_money(amount, bank_account):
         return True
 
 def savings(bank_account, savings_account, monthly_income):
-    saving_money = input("Do you want to add money to savings 'yes' or 'no': \n")
+    saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
-        saving_money_options = input("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly': \n")
+        saving_money_options = input("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
         if saving_money_options == "one off":
-            saving_money_amount = input("How much do you want to transfer to savings?: \n")
+            saving_money_amount = input("How much do you want to transfer to savings?\n")
             if not calculate_enough_money(float(saving_money_amount), bank_account):
                 print("Sorry you do not have enough money in your bank account to transfer to savings\n")
                 return bank_account, savings_account, monthly_income
@@ -26,7 +26,7 @@ def savings(bank_account, savings_account, monthly_income):
                 savings_account += float(saving_money_amount)
                 bank_account -= float(saving_money_amount)
         else:
-            saving_money_amount = input("How much do you want to transfer to savings per month? You currently have "+ str(bank_account) +" in your bank account and "+str(savings_account)+" in savings: \n")
+            saving_money_amount = input("How much do you want to transfer to savings per month? You currently have "+ str(bank_account) +" in your bank account and "+str(savings_account)+" in savings\n")
             if not calculate_enough_money(float(saving_money_amount), monthly_income):
                 print("Sorry you do not have enough money in your monthly income to transfer to savings\n")
                 return bank_account, savings_account, monthly_income
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     savings_account = 0
     current_month = 0
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    happiness_level = 100
+    happiness_level = 0
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
@@ -64,6 +64,9 @@ if __name__ == '__main__':
 
     monthly_income = calculate_monthly_income(loan_amount, part_time_income, job_status)
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
+    bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
+
+
 
     # Get rent and food budget from user
     food_budget = float(input("How much do you want to set aside for food per month? For reference, the average UK "
@@ -76,23 +79,16 @@ if __name__ == '__main__':
 
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
+    bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
     # Initialise bank account after deductions
     while current_month < 12:
-        while monthly_income > 0:
-
+        while bank_account > 0:
             bank_account += monthly_income - food_budget - rent_budget
-            time.sleep(1.5)
-            print("Month: ", months[current_month])
-            time.sleep(1)
-            print("\nBank account balance: £", bank_account)
-            time.sleep(1)
-            print("\nSavings account balance: £", savings_account)
-            time.sleep(1)
-            print("\nYour happiness level: ", happiness_level, "\n")
 
-            bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
-            print("hi")
+            print("Month: ", months[current_month])
+            print("\nBank account balance: £", bank_account)
+            print("\nSavings account balance: £", savings_account)
 
             current_month += 1
 
