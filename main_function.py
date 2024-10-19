@@ -1,5 +1,3 @@
-
-
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
         return (loan_amount / 12) + float(part_time_income)
@@ -63,9 +61,20 @@ if __name__ == '__main__':
 
     monthly_income = calculate_monthly_income(loan_amount, part_time_income, job_status)
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
+    
 
-    bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
+    # Get rent and food budget from user
+    food_budget = float(input("How much do you want to set aside for food per month? For reference, the average UK "
+                              "uni student spends £144.00 per month on groceries.\n"))
+    if food_budget > monthly_income:
+        print("You can't spend more than you earn, on food! Try again.")
+    rent_budget = float(input("How much is your monthly rent amount?\n"))
+    if rent_budget > monthly_income:
+        print("I don't think you can afford to live here... Try again.")
+
+
+    # Get monthly expenses from user
 
     while current_month <= 11:
         bank_account += monthly_income
