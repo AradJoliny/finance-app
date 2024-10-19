@@ -1,5 +1,6 @@
 from scenarios_list import scenarios  # Import the scenarios list
 import time
+import random
 
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
@@ -84,6 +85,9 @@ if __name__ == '__main__':
     while current_month < 12:
         while bank_account > 0:
             bank_account += monthly_income - food_budget - rent_budget
+            scenarios_i = random.randint(0, 11)
+            print(scenarios[scenarios_i][0]) # random scenario influencing bank account 
+            bank_account += scenarios[scenarios_i][1]
             time.sleep(1.5)
             print("Month: ", months[current_month])
             print("\nBank account balance: £", bank_account)
