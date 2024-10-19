@@ -2,18 +2,6 @@ from scenarios_list import scenarios  # Import the scenarios list
 import time
 import random
 
-def validate_yes_no(message):
-    valid = False
-    while valid == False:
-        choice = input(message)
-        if choice.lower() == "yes":
-            valid = True
-        elif choice.lower() == "no":
-            valid = True
-        else:
-            print("That is not a valid option, please enter yes or no")
-    return choice
-
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
         return (loan_amount / 12) + float(part_time_income)
@@ -30,7 +18,7 @@ def calculate_enough_money(amount, bank_account):
 def savings(bank_account, savings_account, monthly_income):
     saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
-        saving_money_options = validate_yes_no("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
+        saving_money_options = input("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
         if saving_money_options == "one off":
             saving_money_amount = input("How much do you want to transfer to savings?\n")
             if not calculate_enough_money(float(saving_money_amount), bank_account):
@@ -68,7 +56,7 @@ if __name__ == '__main__':
     print("Hi! Welcome to the best financial simulator game ever!\n")
     loan_amount = int(input("Lets get started! How much maintenance/student loan do you have per year?\n"))
     # Get their job status, are they working a part-time job?
-    job_status = validate_yes_no("Are you currently working a part-time job? Please enter 'yes' or 'no'\n")
+    job_status = input("Are you currently working a part-time job? Please enter 'yes' or 'no'\n")
     # Change job_status based on input
     if job_status == "yes":
         job_status = True
@@ -114,6 +102,6 @@ if __name__ == '__main__':
 
             bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
-            current_month += 1
+            current_month += 1tion
 
 
