@@ -100,7 +100,7 @@ if __name__ == '__main__':
               'November', 'December']
     happiness_level = 100
 
-    image_path = "/Users/aradjoliny/Downloads/photo-1529778873920-4da4926a72c2.jpeg"  # Replace with your image path
+    image_path = "/Users/tallulahthompson/Desktop/studycat/IMG_7601.PNG"  # Replace with your image path
     create_popup(image_path)  # This will start the GUI window
 
     # Get maintenance/student loan from user
