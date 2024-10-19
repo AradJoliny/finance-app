@@ -77,7 +77,7 @@ def create_popup(image_path):
     # Redirect sys.stdout to our custom class
     sys.stdout = RedirectText(text_widget)
 
-    # Start the Tkinter event loop
+    # Start the Tkinter event loop.
     root.mainloop()
             
 # Press the green button in the gutter to run the script.
