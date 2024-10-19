@@ -1,4 +1,5 @@
 from scenarios_list import scenarios  # Import the scenarios list
+import time
 
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
@@ -81,24 +82,24 @@ if __name__ == '__main__':
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
     bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
+    # Print monthly budget after expenses
+    print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
+
     # Initialise bank account after deductions
     while current_month < 12:
-        while bank_account > 0:
+        while monthly_income > 0:
             bank_account += monthly_income - food_budget - rent_budget
-
+            time.sleep(1.5)
             print("Month: ", months[current_month])
+            time.sleep(1)
             print("\nBank account balance: £", bank_account)
+            time.sleep(1)
             print("\nSavings account balance: £", savings_account)
+            time.sleep(1)
+            print("\nYour happiness level: ", happiness_level, "\n")
+
+            bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
             current_month += 1
-
-
-
-
-
-
-
-
-
 
 
