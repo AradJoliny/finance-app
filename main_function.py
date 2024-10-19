@@ -64,8 +64,6 @@ if __name__ == '__main__':
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
     bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
-
-
     # Get rent and food budget from user
     food_budget = float(input("How much do you want to set aside for food per month? For reference, the average UK "
                               "uni student spends £144.00 per month on groceries.\n"))
@@ -88,7 +86,7 @@ if __name__ == '__main__':
             print("\nBank account balance: £", bank_account)
             print("\nSavings account balance: £", savings_account)
 
-            current_month += 1
+            current_month += 1tion
 
 
 
