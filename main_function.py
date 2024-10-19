@@ -1,9 +1,31 @@
 import random
 import sys
 
-from scenarios_list import scenarios  # Import the scenarios list
+from scenarios_list import scenarios  # Import the scenarios list.
 import time
 from scenarios_list import scenarios
+
+def validate_yes_no(message):
+    valid = False
+    while valid == False:
+        choice = input(message)
+        if choice.lower() == "yes":
+            valid = True
+        elif choice.lower() == "no":
+            valid = True
+        else:
+            print("Please enter yes or no")
+    return choice
+
+def validate_budgets(prompt,message,income):
+    valid = False
+    while valid == False:
+        budget = float(input(prompt))
+        if budget > income:
+            print(message)
+        else:
+            valid = True
+    return budget
 
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
@@ -19,7 +41,7 @@ def calculate_enough_money(amount, bank_account):
         return True
 
 def savings(bank_account, savings_account, monthly_income):
-    saving_money = input("Do you want to add money to savings 'yes' or 'no'\n")
+    saving_money = validate_yes_no("Do you want to add money to savings 'yes' or 'no'\n")
     if saving_money == "yes":
         saving_money_options = input \
             ("Do you want to make a one off transfer or monthly transfer? Please enter 'one off' or 'monthly'\n")
@@ -122,7 +144,7 @@ if __name__ == '__main__':
     print("Hi! Welcome to the best financial simulator game ever!\n")
     loan_amount = int(input("Lets get started! How much maintenance/student loan do you have per year?\n"))
     # Get their job status, are they working a part-time job?
-    job_status = input("Are you currently working a part-time job? Please enter 'yes' or 'no'\n")
+    job_status = validate_yes_no("Are you currently working a part-time job? Please enter 'yes' or 'no'\n")
     # Change job_status based on input
     if job_status == "yes":
         job_status = True
@@ -134,13 +156,8 @@ if __name__ == '__main__':
     print(f"Okay! Your monthly income is: £{monthly_income:.2f}")
 
     # Get rent and food budget from user
-    food_budget = float(input("How much do you want to set aside for food per month? For reference, the average UK "
-                              "uni student spends £144.00 per month on groceries.\n"))
-    if food_budget > monthly_income:
-        print("You can't spend more than you earn, on food! Try again.")
-    rent_budget = float(input("How much is your monthly rent amount?\n"))
-    if rent_budget + food_budget > monthly_income:
-        print("I don't think you can afford to live here... Try again.")
+    food_budget = validate_budgets("How much do you want to set aside for food per month? For reference, the average UK ""uni student spends £144.00 per month on groceries.\n","You can't spend more than you earn, on food! Try again.",monthly_income)
+    rent_budget = validate_budgets("How much is your monthly rent amount?\n","I don't think you can afford to live here... Try again.",monthly_income)
 
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
