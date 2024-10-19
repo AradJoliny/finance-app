@@ -45,6 +45,51 @@ def savings(bank_account, savings_account, monthly_income):
         print("Okay! No money has been added to savings\n")
     return bank_account, savings_account, monthly_income
 
+
+def random_events():
+    # 25% chance to go out tonight
+    if random.random() <= 0.25:
+        print("You have the option to out clubbing tonight! Do you want to go? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You went out and had a great time! But it cost you some money...")
+            return -50, +20  # Deduct some money and increase happiness
+        else:
+            print("You decided not to go to the party. You got some bad FOMO...")
+            return -0, -25  # Deduct no money but decrease happiness
+
+    # 15% chance it's your friend's birthday
+    if random.random() <= 0.15:
+        print("It's your friend's birthday! Do you want to buy them a gift? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You bought a gift for your friend! It cost you some money but they really appreciated it.\n Money lost: -25, Happiness gained: +10")
+            return -25, +10  # Deduct money and increase happiness
+        else:
+            print("You decided not to buy a gift for your friend.")
+
+    # 10% chance a new Mario Kart game just came out
+    if random.random() <= 0.20:
+        print("A new Mario Kart game just came out! Do you want to buy it? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You bought the new Mario Kart game! It was expensive but it's a lot of fun.\n Money lost: -50, Happiness gained: +15")
+            return -50, +15  # Deduct money and increase happiness
+        else:
+            print("You decided not to buy the new Mario Kart game.")
+
+    return 0, 0  # No change if none of the events happen
+
+    # 50% chance to go for a takeout
+    if random.random() <= 0.20:
+        print("You have the option to go for a takeout! Do you want to go? (yes/no)")
+        choice = input().lower()
+        if choice == "yes":
+            print("You went for a takeout and had some great scran! But it cost you some money.\nMoney lost: -15, Happiness gained: +20")
+            return -15, +20  # Deduct some money and increase happiness
+        else:
+            print("You decided not to go for a takeout.")
+
 def after_uni(savings_account):
     savings_account = savings_account * (1.02^4)
     print("After 4 years of uni, your savings account balance is: £", savings_account)
@@ -57,6 +102,7 @@ def after_uni(savings_account):
         savings_account = savings_account * (1.07^30)
         print("After 30 years, your savings account balance is: £", savings_account)
         print("You earned more money because you invested in an index fund (7% return) instead of a Life Time ISA (1% return), well done, but this could have gone the other way!")
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -71,7 +117,6 @@ if __name__ == '__main__':
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
               'November', 'December']
     happiness_level = 100
-
 
     # Get maintenance/student loan from user
     print("Hi! Welcome to the best financial simulator game ever!\n")
@@ -94,7 +139,7 @@ if __name__ == '__main__':
     if food_budget > monthly_income:
         print("You can't spend more than you earn, on food! Try again.")
     rent_budget = float(input("How much is your monthly rent amount?\n"))
-    if rent_budget + food_budget > monthly_income:
+    if rent_budget > monthly_income:
         print("I don't think you can afford to live here... Try again.")
 
     # Print monthly budget after expenses
@@ -121,6 +166,11 @@ if __name__ == '__main__':
                 print(scenarios[scenario_i][0])
                 bank_account += scenarios[scenario_i][1]
 
+                # Call the random events function
+                money_change, happiness_change = random_events()
+                bank_account += money_change
+                happiness_level += happiness_change
+
                 if bank_account < 0:
                     print("Uh oh! You have no money left in your bank account. You have lost the game.")
                     sys.exit()
@@ -133,6 +183,3 @@ if __name__ == '__main__':
 
     if bank_account < 0:
         print("Uh oh! You have no money left in your bank account. You have lost the game.")
-
-
-
