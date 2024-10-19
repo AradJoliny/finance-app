@@ -1,3 +1,5 @@
+from scenarios_list import scenarios  # Import the scenarios list
+
 def calculate_monthly_income(loan_amount, part_time_income, job_status):
     if job_status == True:
         return (loan_amount / 12) + float(part_time_income)
