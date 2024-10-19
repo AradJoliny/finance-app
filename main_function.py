@@ -6,6 +6,8 @@ import time
 import tkinter as tk
 from tkinter import Label
 from PIL import Image, ImageTk
+import random 
+from scenarios import scenarios
 
 class RedirectText:
     def __init__(self, text_widget):
@@ -131,7 +133,6 @@ if __name__ == '__main__':
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
 
     bank_account += monthly_income - food_budget - rent_budget
-
     # Initialise bank account after deductions
     while current_month < 12:
         while bank_account > 0:
@@ -151,6 +152,11 @@ if __name__ == '__main__':
 
             current_month += 1
             bank_account += monthly_income - food_budget - rent_budget
+
+            #crazy unavoidable event 
+            scenario_i = random.randint(0, 11)
+            print(scenarios[scenario_i][0])
+            bank_account += scenarios[scenario_i][1]
 
 
 
