@@ -84,10 +84,11 @@ if __name__ == '__main__':
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
 
+    bank_account += monthly_income - food_budget - rent_budget
+
     # Initialise bank account after deductions
     while current_month < 12:
-        while monthly_income > 0:
-            bank_account += monthly_income - food_budget - rent_budget
+        while bank_account > 0:
             scenario_i = random.randint(0, 11)
             print(scenarios[scenario_i][0])
             bank_account += scenarios[scenario_i][1]
@@ -102,6 +103,7 @@ if __name__ == '__main__':
 
             bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
-            current_month += 1tion
+            current_month += 1
+            bank_account += monthly_income - food_budget - rent_budget
 
 
