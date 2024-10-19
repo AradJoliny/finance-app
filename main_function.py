@@ -5,9 +5,9 @@ from scenarios_list import scenarios  # Import the scenarios list
 import time
 import tkinter as tk
 from tkinter import Label
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 import random 
-from scenarios import scenarios
+from scenarios_list import scenarios
 
 class RedirectText:
     def __init__(self, text_widget):
@@ -61,6 +61,19 @@ def savings(bank_account, savings_account, monthly_income):
     else:
         print("Okay! No money has been added to savings\n")
     return bank_account, savings_account, monthly_income
+
+def after_uni(savings_account):
+    savings_account = savings_account * (1.02^4)
+    print("After 4 years of uni, your savings account balance is: £", savings_account)
+    savings_choice = input("Do you want to make a Life Time ISA or invest in an index fund? Please enter 'ISA' or 'index fund'\n")
+    if savings_choice == "ISA":
+        savings_account = savings_account * (1.01^30)
+        print("After 30 years, your savings account balance is: £", savings_account)
+        print("You could have earned more money if you invested in an index fund (7% return) instead of a Life Time ISA (1% return), but you didn't take the risk!")
+    else:
+        savings_account = savings_account * (1.07^30)
+        print("After 30 years, your savings account balance is: £", savings_account)
+        print("You earned more money because you invested in an index fund (7% return) instead of a Life Time ISA (1% return), well done, but this could have gone the other way!")
 
 
 def create_popup(image_path):
@@ -158,5 +171,5 @@ if __name__ == '__main__':
             print(scenarios[scenario_i][0])
             bank_account += scenarios[scenario_i][1]
 
-
+        after_uni(savings_account)
 
