@@ -1,7 +1,7 @@
 import random
 import sys
 
-from scenarios_list import scenarios  # Import the scenarios list
+from scenarios_list import scenarios  # Import the scenarios list.
 import time
 from scenarios_list import scenarios
 
