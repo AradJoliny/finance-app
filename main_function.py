@@ -6,6 +6,8 @@ import time
 import tkinter as tk
 from tkinter import Label
 from PIL import Image, ImageTk
+import random 
+from scenarios import scenarios
 
 class RedirectText:
     def __init__(self, text_widget):
@@ -124,14 +126,13 @@ if __name__ == '__main__':
     if food_budget > monthly_income:
         print("You can't spend more than you earn, on food! Try again.")
     rent_budget = float(input("How much is your monthly rent amount?\n"))
-    if rent_budget > monthly_income:
+    if rent_budget + food_budget > monthly_income:
         print("I don't think you can afford to live here... Try again.")
 
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
 
     bank_account += monthly_income - food_budget - rent_budget
-
     # Initialise bank account after deductions
     while current_month < 12:
         while bank_account > 0:
@@ -151,6 +152,11 @@ if __name__ == '__main__':
 
             current_month += 1
             bank_account += monthly_income - food_budget - rent_budget
+
+            #crazy unavoidable event 
+            scenario_i = random.randint(0, 11)
+            print(scenarios[scenario_i][0])
+            bank_account += scenarios[scenario_i][1]
 
 
 
