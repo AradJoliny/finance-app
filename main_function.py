@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     # Print monthly budget after expenses
     print("\nTherefore your monthly budget after expenses is: £", (monthly_income - food_budget - rent_budget))
-
+    bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
 
     # Initialise bank account after deductions
     while current_month < 12:
