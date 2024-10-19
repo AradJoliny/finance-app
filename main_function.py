@@ -92,6 +92,7 @@ if __name__ == '__main__':
             print("\nYour happiness level: ", happiness_level, "\n")
 
             bank_account, savings_account, monthly_income = savings(bank_account, savings_account, monthly_income)
+            print("hi")
 
             current_month += 1
 
